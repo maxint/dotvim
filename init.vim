@@ -1,24 +1,24 @@
 "if &compatible
-"  set nocompatible
+  "set nocompatible
 "endif
 
 call plug#begin(fnamemodify(expand('<sfile>'), ':h').'/plugged')
-Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'mhinz/vim-startify'
-"Plug 'mhinz/vim-janah'
 Plug 'scrooloose/nerdcommenter'
-Plug 'junegunn/fzf', { 'dir' : '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
-Plug 'davidhalter/jedi-vim'
-Plug 'vim-airline/vim-airline'
 Plug 'tpope/vim-surround' " ds<delimiter> etc.
-Plug 'machakann/vim-highlightedyank'
 Plug 'terryma/vim-multiple-cursors' " normal mode, <c-n> to select, <c-c> to stop selection
-Plug 'Shougo/neosnippet.vim'
-Plug 'Shougo/neosnippet-snippets'
 "Plug 'nathanaelkane/vim-indent-guides'
 "Plug 'Yggdroot/indentLine'
-call plug#end()
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"Plug 'mhinz/vim-janah'
+"try
+  "colorscheme janah
+  "autocmd ColorScheme janah highlight Normal ctermbg=235
+"catch /^Vim\%((\a\+)\)\=:E185/
+  "colorscheme default
+"endtry
+colorscheme koehler
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " common settings
@@ -44,17 +44,15 @@ nnoremap <Tab> :bnext!<cr>
 nnoremap <S-Tab> :bprev!<cr><paste>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" janah colorscheme
-"try
-  "colorscheme janah
-  "autocmd ColorScheme janah highlight Normal ctermbg=235
-  "colorscheme mayormaynotexist
-"catch /^Vim\%((\a\+)\)\=:E185/
-  "colorscheme default
-"endtry
+" build mappings
+nnoremap <F7> :make<cr>
+inoremap <F7> <c-o>:make<cr>
+autocmd FileType c,cpp setlocal makeprg=make\ \-C\ cmake-build-Release
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" fzf-vim
+" fzf.vim
+Plug 'junegunn/fzf', { 'dir' : '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
 " Mapping selecting mappings
 nmap <leader><tab> <plug>(fzf-maps-n)
 xmap <leader><tab> <plug>(fzf-maps-x)
@@ -72,6 +70,7 @@ nnoremap <c-p> :Files<cr>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " jedi-vim
+Plug 'davidhalter/jedi-vim'
 let g:jedi#goto_command = "<leader>d"
 let g:jedi#goto_assignments_command = "<leader>g"
 let g:jedi#goto_definitions_command = ""
@@ -86,10 +85,12 @@ autocmd FileType python nnoremap <buffer> <F5> :exec 'terminal python3' shellesc
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vim-highlightedyank
+Plug 'machakann/vim-highlightedyank'
 hi HighlightedyankRegion cterm=reverse gui=reverse
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" NERDTree
+" nerdtree
+Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 nnoremap <F4> :NERDTreeToggle<cr>
 inoremap <F4> <c-o>:NERDTreeToggle<cr>
 nnoremap <F2> :Startify<cr>
@@ -97,12 +98,14 @@ inoremap <F2> <c-o>:Startify<cr>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " airline
+Plug 'vim-airline/vim-airline'
 let g:airline#extensions#tabline#enabled=1
 set laststatus=2
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " neosnippet
-" Plugin key-mappings.
+Plug 'Shougo/neosnippet.vim'
+Plug 'Shougo/neosnippet-snippets'
 " Note: It must be "imap" and "smap".  It uses <Plug> mappings.
 imap <C-k>     <Plug>(neosnippet_expand_or_jump)
 smap <C-k>     <Plug>(neosnippet_expand_or_jump)
@@ -122,8 +125,4 @@ if has('conceal')
   set conceallevel=2 concealcursor=niv
 endif
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" build mappings
-nnoremap <F7> :make<cr>
-inoremap <F7> <c-o>:make<cr>
-autocmd FileType c,cpp setlocal makeprg=make\ \-C\ cmake-build-Release
+call plug#end()
