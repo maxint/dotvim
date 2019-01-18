@@ -2,6 +2,7 @@
   "set nocompatible
 "endif
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 call plug#begin(fnamemodify(expand('<sfile>'), ':h').'/plugged')
 Plug 'mhinz/vim-startify'
 Plug 'scrooloose/nerdcommenter'
@@ -9,6 +10,7 @@ Plug 'tpope/vim-surround' " ds<delimiter> etc.
 Plug 'terryma/vim-multiple-cursors' " normal mode, <c-n> to select, <c-c> to stop selection
 "Plug 'nathanaelkane/vim-indent-guides'
 "Plug 'Yggdroot/indentLine'
+
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "Plug 'mhinz/vim-janah'
@@ -19,6 +21,7 @@ Plug 'terryma/vim-multiple-cursors' " normal mode, <c-n> to select, <c-c> to sto
   "colorscheme default
 "endtry
 colorscheme koehler
+
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " common settings
@@ -33,8 +36,8 @@ set expandtab
 " increase and highlight search
 set incsearch
 set hlsearch
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" enable mouse
+set mouse=a
 " common mappings
 let mapleader=','
 nnoremap wi <c-w>
@@ -43,11 +46,13 @@ nnoremap <leader>sv :source $MYVIMRC<cr>
 nnoremap <Tab> :bnext!<cr>
 nnoremap <S-Tab> :bprev!<cr><paste>
 
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " build mappings
 nnoremap <F7> :make<cr>
 inoremap <F7> <c-o>:make<cr>
 autocmd FileType c,cpp setlocal makeprg=make\ \-C\ cmake-build-Release
+
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " fzf.vim
@@ -68,6 +73,7 @@ imap <c-x><c-l> <plug>(fzf-complete-line)
 inoremap <expr> <c-x><c-k> fzf#vim#complete#word({'left': '15%'})
 nnoremap <c-p> :Files<cr>
 
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " jedi-vim
 Plug 'davidhalter/jedi-vim'
@@ -83,10 +89,12 @@ autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 autocmd FileType python nnoremap <buffer> <F5> :exec 'terminal python3' shellescape(@%, 1)<cr>
 
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vim-highlightedyank
 Plug 'machakann/vim-highlightedyank'
 hi HighlightedyankRegion cterm=reverse gui=reverse
+
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " nerdtree
@@ -96,11 +104,13 @@ inoremap <F4> <c-o>:NERDTreeToggle<cr>
 nnoremap <F2> :Startify<cr>
 inoremap <F2> <c-o>:Startify<cr>
 
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " airline
 Plug 'vim-airline/vim-airline'
 let g:airline#extensions#tabline#enabled=1
 set laststatus=2
+
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " neosnippet
@@ -124,5 +134,10 @@ smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 if has('conceal')
   set conceallevel=2 concealcursor=niv
 endif
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" git
+Plug 'airblade/vim-gitgutter'
+Plug 'tpope/vim-fugitive'
 
 call plug#end()
