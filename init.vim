@@ -121,3 +121,9 @@ smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 if has('conceal')
   set conceallevel=2 concealcursor=niv
 endif
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" build mappings
+nnoremap <F7> :make<cr>
+inoremap <F7> <c-o>:make<cr>
+autocmd FileType c,cpp setlocal makeprg=make\ \-C\ cmake-build-Release
