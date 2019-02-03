@@ -38,6 +38,8 @@ set incsearch
 set hlsearch
 " enable mouse
 set mouse=a
+" remove '=' from filename
+set isfname-==
 " common mappings
 let mapleader=','
 nnoremap wi <c-w>
