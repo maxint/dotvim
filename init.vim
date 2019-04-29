@@ -40,6 +40,9 @@ set hlsearch
 set mouse=a
 " remove '=' from filename
 set isfname-==
+if has("autocmd")
+    au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
+endif
 " common mappings
 let mapleader=','
 nnoremap wi <c-w>
@@ -153,5 +156,9 @@ endif
 " git
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" editorconfig
+Plug 'editorconfig/editorconfig-vim'
 
 call plug#end()
